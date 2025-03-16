@@ -2,7 +2,7 @@
 
 ## Overview
 
-The ASR Rule Inspector is a PowerShell script designed to inspect and report on the status of Attack Surface Reduction (ASR) rules, ASR exclusions, and Controlled Folder Access (CFA) settings on a Windows device.
+The ASR Rule Inspector is a PowerShell script designed to inspect and report on the status of Attack Surface Reduction (ASR) rules, ASR exclusions, and Controlled Folder Access (CFA) settings on a Windows device that are deployed by Microsoft Intune.
 
 ## Functions
 
