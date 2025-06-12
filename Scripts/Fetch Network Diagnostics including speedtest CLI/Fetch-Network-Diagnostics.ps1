@@ -114,9 +114,45 @@ try {
         Write-Warning "Could not retrieve geolocation information"
     }
 
+    # Get SSID information
+    $SSID = $null
+    try {
+        # Method 1: Try using netsh wlan show interfaces
+        $wlanInterface = netsh wlan show interfaces | Select-String "SSID"
+        if ($wlanInterface) {
+            $SSID = ($wlanInterface -split ":")[1].Trim()
+        }
+        
+        # Method 2: Alternative using WMI if netsh fails
+        if (-not $SSID) {
+            $wifiAdapter = Get-WmiObject -Class Win32_NetworkAdapter | Where-Object { $_.Name -like "*Wi-Fi*" -or $_.Name -like "*Wireless*" }
+            if ($wifiAdapter) {
+                $wifiConfig = Get-WmiObject -Class Win32_NetworkAdapterConfiguration | Where-Object { $_.Index -eq $wifiAdapter.Index -and $_.IPEnabled -eq $true }
+                if ($wifiConfig) {
+                    $SSID = $wifiConfig.Description
+                }
+            }
+        }
+        
+        # Method 3: Try Get-NetConnectionProfile with different approach
+        if (-not $SSID) {
+            $connectionProfile = Get-NetConnectionProfile | Where-Object { $_.InterfaceAlias -like "*Wi-Fi*" -or $_.InterfaceAlias -like "*Wireless*" }
+            if ($connectionProfile) {
+                $SSID = $connectionProfile.Name
+            }
+        }
+    }
+    catch {
+        Write-Warning "Could not retrieve SSID information"
+    }
+    
+
+
     # Create one comprehensive PSCustomObject
     $speedtestResults = [PSCustomObject]@{
         # Speed Test Results
+        SpeedTestDateTime = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
+        SSID = $SSID
         DownloadSpeed_Mbps = $downloadSpeed
         UploadSpeed_Mbps = $uploadSpeed
         PingLatency_ms = $pingLatency
