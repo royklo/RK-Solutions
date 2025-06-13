@@ -16,11 +16,11 @@ title: '[REPORT] '
 ## Issue Type
 Please select what you're reporting:
 
-- [ ] **Bug Report** - Something is broken or not working as expected
-- [ ] **Missing Feature** - Something that should be there but isn't
-- [ ] **Feature Request** - New functionality you'd like to see added
-- [ ] **Data/Content Issue** - Incorrect, outdated, or missing information
-- [ ] **UI/UX Issue** - Design or usability problem
+[ ] **Bug Report** - Something is broken or not working as expected
+[ ] **Missing Feature** - Something that should be there but isn't
+[ ] **Feature Request** - New functionality you'd like to see added
+[ ] **Data/Content Issue** - Incorrect, outdated, or missing information
+[ ] **UI/UX Issue** - Design or usability problem
 
 ## What's the Problem?
 **Clearly describe what you found or what's missing:**
